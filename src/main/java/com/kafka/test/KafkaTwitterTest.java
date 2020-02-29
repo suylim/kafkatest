@@ -13,16 +13,18 @@ import java.util.Properties;
 public class KafkaTwitterTest {
 
     //private ArrayList<String> al = new ArrayList<String>();
+    // Instantiate Kafka Producer
     KafkaProducer<String, String> kp = KafkaTwitterProd();
-
+//Main method
     public static void main(String[] args) {
 
         new KafkaTwitterTest().TwitterProducer();
 
     }
-
+// Method to initiate Twitter4J producer
     public void TwitterProducer() {
         Logger logger = LoggerFactory.getLogger(KafkaTwitterTest.class.getName());
+// Setup Twitter secrets 
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true).setOAuthConsumerKey("##########")
                 .setOAuthConsumerSecret("############")
@@ -76,7 +78,7 @@ public class KafkaTwitterTest {
             @Override
             public void onMessage(String s) {
 
-                // Alternative experiment to get data into arraylist as a buffer and then print on screen
+                // Alternative experiment to get data into arraylist as a buffer and then batch push
 //                al.add(s);
 //                //System.out.println(s);
 //                logger.info("===============ArrayLength=============== "+al.size());
@@ -133,10 +135,10 @@ public class KafkaTwitterTest {
 
     }
 
+    // Instantiation method for Kafka Producer
     @SuppressWarnings("Duplicates")
     public KafkaProducer<String, String> KafkaTwitterProd() {
-        Logger logger = LoggerFactory.getLogger(ProducerDemoKeys.class);
-//        System.out.println("hello");
+        
         Properties properties = new Properties();
         String bootStrapServer = "localhost:9092";
         properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootStrapServer);
